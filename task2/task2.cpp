@@ -33,7 +33,7 @@ int main() {
 
     while (getline(file, lines[totalLines])) {
         totalLines++;
-        if (totalLines >= 100) break; // keep it simple
+        if (totalLines >= 100) break; 
     }
     file.close();
 
