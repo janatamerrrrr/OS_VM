@@ -45,14 +45,14 @@ int main() {
 
     int middle = totalLines / 2;
 
-    // Start threads
+
     t1 = thread(countWords, lines, 0, middle, ref(count1), 1);
     t2 = thread(countWords, lines, middle, totalLines, ref(count2), 2);
 
     t1.join();
     t2.join();
 
-    // Merge results
+  
     map<string, int> finalCount = count1;
     for (auto &pair : count2) {
         finalCount[pair.first] += pair.second;
