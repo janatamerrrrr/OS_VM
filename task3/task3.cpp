@@ -30,16 +30,16 @@ int main() {
             ref[i] = 0;
         }
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) { //loop through page refs
 
             int page = pages[i];
-            bool found = false;
+            bool found = false; 
 
 
-            for (int j = 0; j < frames; j++) {
+            for (int j = 0; j < frames; j++) { //check if in memory
                 if (memory[j] == page) {
-                    ref[j] = 1;
-                    found = true;
+                    ref[j] = 1; // it is accessed
+                    found = true; // in the memory
                 }
             }
 
@@ -47,7 +47,7 @@ int main() {
 
                 faults++;
 
-                int smallest = 0;
+                int smallest = 0; // least recent
 
                 for (int j = 1; j < frames; j++) {
                     if (counter[j] < counter[smallest]) {
@@ -55,23 +55,23 @@ int main() {
                     }
                 }
 
-                memory[smallest] = page;
+                memory[smallest] = page; // replace the page (smallest)
                 counter[smallest] = 0;
                 ref[smallest] = 1;
             }
 
-            for (int j = 0; j < frames; j++) {
+            for (int j = 0; j < frames; j++) { //agieng update
 
-                counter[j] = counter[j] >> 1;
+                counter[j] = counter[j] >> 1; // shift counter (reduces weight of older references)
 
                 if (ref[j] == 1)
-                    counter[j] = counter[j] + 128;
+                    counter[j] = counter[j] + 128; // if recently used, add most bit number
 
                 ref[j] = 0;
             }
         }
 
-        double result = (faults * 1000.0) / n;
+        double result = (faults * 1000.0) / n; // scales page faults to per 1000 references
 
         cout << frames << "        " << result << endl;
     }
